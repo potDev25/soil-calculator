@@ -1,10 +1,10 @@
 import CCard from "./components/CCard";
 import Buttons from "./components/Layouts/Buttons";
 import InputGroup from "./components/Layouts/InputGroup";
-import {useSelector} from 'react-redux'
+import { useSelector } from "react-redux";
 
 function App() {
-  const properties = useSelector((state) => state.calculator.properties)
+  const properties = useSelector((state) => state.calculator.properties);
   return (
     <div>
       <div
@@ -16,15 +16,43 @@ function App() {
       <div className="p-3">
         <div className="h-full w-full">
           <div className="mb-5">
-            <InputGroup/>
-            <Buttons/>
+            <InputGroup />
+            <Buttons />
           </div>
 
           <div>
-            <CCard title="Property One" value={properties.propsOne} />
-            <CCard title="Property Two" value={properties.propsTwo} />
-            <CCard title="Property Three" value={properties.propsThree} />
-            <CCard title="Property Four" value={properties.propsFour} />
+            <CCard
+              title={
+                <>
+                  <em className="bg-blue-500 lowercase">(e)</em> Void Ratio
+                </>
+              }
+              value={properties.propsOne}
+            />
+            <CCard
+              title={
+                <>
+                  <em className="bg-blue-500 lowercase">(n)</em> Porosity
+                </>
+              }
+              value={properties.propsTwo}
+            />
+            <CCard
+              title={
+                <>
+                  <em className="bg-blue-500 lowercase">(S)</em> Degree of Saturation
+                </>
+              }
+              value={properties.propsThree}
+            />
+            <CCard
+              title={
+                <>
+                  <em className="bg-blue-500">(M<span className="bg-blue-500 lowercase">c</span>)</em> Moisture Content
+                </>
+              }
+              value={properties.propsFour}
+            />
             <CCard title="Property Five" value={properties.propsFive} />
           </div>
         </div>
