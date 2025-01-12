@@ -14,12 +14,12 @@ export default function CSelect({
         {labelText}
       </label> <br />
       <Select
-        defaultValue="unit-1"
         className="w-full"
+        defaultValue={{ value: value, label: "SI Unit (9.81)" }}
         onChange={handleChange}
         options={[
-          { value: "unit-1", label: "Unit One" },
-          { value: "unit-2", label: "Unit Two" },
+          { value: 9.81, label: "SI Unit (9.81)" },
+          { value: 62.4, label: "English Unit (62.4)" },
         ]}
       />
     </div>

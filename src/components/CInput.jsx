@@ -13,6 +13,8 @@ export default function CInput({
         {labelText}
       </label>
       <Input 
+        type="number"
+        min={0}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
