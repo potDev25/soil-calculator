@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 
 function App() {
   const properties = useSelector((state) => state.calculator.properties);
+  const loader = useSelector((state) => state.loader.properties);
+  const [loading, setLoading] = useState(false);
   const [notations, setNotations] = useState({
     e: 0,
     n: 0,
@@ -41,10 +43,22 @@ function App() {
               setNotations={setNotations}
               setUnit={setUnit}
             />
-            <Buttons notations={notations} setNotations={setNotations} />
+            <Buttons
+              setLoading={setLoading}
+              notations={notations}
+              setNotations={setNotations}
+            />
           </div>
 
-          <div>
+          {loading ? <div className="flex items-center justify-center mt-16 mb-10">
+            <div className="spinner"></div>
+          </div> : null}
+
+          <div
+            className={`transition-opacity duration-700 ease-in-out ${
+              loader.container_load ? "opacity-100" : "opacity-0"
+            }`}
+          >
             <CCard
               title={
                 <>
@@ -122,7 +136,8 @@ function App() {
               }
               value={
                 <>
-                  {properties.saturated_unit} {unit == "si" ? si_unit : english_unit}
+                  {properties.saturated_unit}{" "}
+                  {unit == "si" ? si_unit : english_unit}
                 </>
               }
             />
@@ -137,7 +152,8 @@ function App() {
               }
               value={
                 <>
-                  {properties.effective_unit} {unit == "si" ? si_unit : english_unit}
+                  {properties.effective_unit}{" "}
+                  {unit == "si" ? si_unit : english_unit}
                 </>
               }
             />

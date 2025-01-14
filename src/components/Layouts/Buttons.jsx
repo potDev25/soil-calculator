@@ -17,7 +17,12 @@ import {
   setPorosity,
 } from "../../Slice/calculatorSlice";
 
-export default function Buttons({ notations, setNotations }) {
+import {
+  setLoader,
+  setOffLoader
+} from "../../Slice/loderSlice";
+
+export default function Buttons({ notations, setNotations, setLoading }) {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
@@ -27,6 +32,8 @@ export default function Buttons({ notations, setNotations }) {
   };
 
   const handleCalculate = () => {
+    setLoading(true)
+    dispatch(setOffLoader())
     dispatch(setVoidRation(notations));
     dispatch(setPorosity(notations));
     dispatch(setMoistureContent(notations));
@@ -36,6 +43,11 @@ export default function Buttons({ notations, setNotations }) {
     dispatch(setEffective(notations));
     dispatch(setCritical(notations));
     dispatch(setDegreeOfSaturation(notations));
+
+    setTimeout(() => {
+      dispatch(setLoader())
+      setLoading(false)
+    }, 1000)
   };
 
   const handleClear = () => {
@@ -48,6 +60,7 @@ export default function Buttons({ notations, setNotations }) {
       yw: 0,
       s: 0,
     });
+    dispatch(setOffLoader())
   };
 
   // const setupDB = async () => {
