@@ -66,6 +66,11 @@ function App() {
                 </>
               }
               value={properties.void_ratio}
+              with_sol={notations.e == 0 ? true : false}
+              numerator={properties.porosity}
+              denuminator={`1 - ${properties.porosity}`}
+              numerator_text="n"
+              denuminator_text="1 - n"
             />
             <CCard
               title={
@@ -74,6 +79,11 @@ function App() {
                 </>
               }
               value={properties.porosity}
+              with_sol={notations.n == 0 ? true : false}
+              numerator={properties.void_ratio}
+              denuminator={`1 + ${properties.void_ratio}`}
+              numerator_text="e"
+              denuminator_text="1 + e"
             />
             <CCard
               title={
@@ -83,6 +93,11 @@ function App() {
                 </>
               }
               value={properties.saturation}
+              with_sol={notations.s == 0 ? true : false}
+              numerator={`${notations.g}(${properties.moisture_saturation})`}
+              denuminator={`${properties.void_ratio}`}
+              numerator_text="GMC"
+              denuminator_text="e"
             />
             <CCard
               title={
@@ -94,6 +109,11 @@ function App() {
                 </>
               }
               value={properties.moisture_saturation}
+              with_sol={notations.mc == 0 ? true : false}
+              numerator={`${properties.saturation}(${properties.void_ratio})`}
+              denuminator={`${notations.g}`}
+              numerator_text="Se"
+              denuminator_text="G"
             />
             <CCard
               title={
@@ -109,6 +129,13 @@ function App() {
                   {properties.bulk_unit} {unit == "si" ? si_unit : english_unit}
                 </>
               }
+              with_sol={true}
+              numerator={`${notations.g} + (${notations.g})(${properties.moisture_saturation})`}
+              denuminator={`1 + ${properties.void_ratio}`}
+              right_num={notations.yw ?? 9.81}
+              numerator_text="G + Se"
+              denuminator_text="1 + e"
+              right_num_text="Yw"
             />
             <CCard
               title={
@@ -124,6 +151,13 @@ function App() {
                   {properties.dry_unit} {unit == "si" ? si_unit : english_unit}
                 </>
               }
+              with_sol={true}
+              numerator={`${notations.g}`}
+              denuminator={`1 + ${properties.void_ratio}`}
+              right_num={notations.yw}
+              numerator_text="G"
+              denuminator_text="1 + e"
+              right_num_text="Yw"
             />
             <CCard
               title={
@@ -140,6 +174,13 @@ function App() {
                   {unit == "si" ? si_unit : english_unit}
                 </>
               }
+              with_sol={true}
+              numerator={`${notations.g} + ${properties.void_ratio}`}
+              denuminator={`1 + ${properties.void_ratio}`}
+              right_num={notations.yw}
+              numerator_text="G + e"
+              denuminator_text="1 + e"
+              right_num_text="Yw"
             />
             <CCard
               title={
@@ -156,6 +197,13 @@ function App() {
                   {unit == "si" ? si_unit : english_unit}
                 </>
               }
+              with_sol={true}
+              numerator={`${notations.g} - 1`}
+              denuminator={`1 + ${properties.void_ratio}`}
+              right_num={notations.yw}
+              numerator_text="G - 1"
+              denuminator_text="1 + e"
+              right_num_text="Yw"
             />
             <CCard
               title={
@@ -167,6 +215,11 @@ function App() {
                 </>
               }
               value={properties.critical}
+              with_sol={true}
+              numerator={`${notations.g} - 1`}
+              denuminator={`1 + ${properties.void_ratio}`}
+              numerator_text="G - 1"
+              denuminator_text="1 + e"
             />
           </div>
         </div>
