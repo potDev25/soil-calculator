@@ -19,19 +19,50 @@ const calculatorSlice = createSlice({
   initialState,
   reducers: {
     setVoidRation: (state, action) => {
-      const { n, e } = action.payload;
+      const { n, e, s, mc, ym, yd, ysat, yb, g, yw } = action.payload;
 
       if (e == 0) {
-        const onePlusN = 1 - n;
-        const result = n / onePlusN;
-        state.properties.void_ratio = result.toFixed(3);
+        if(n > 0){
+          const onePlusN = 1 - n;
+          const result = n / onePlusN;
+          state.properties.void_ratio = result.toFixed(3);
+        }else if(s > 0){
+          console.log('s is given');
+          const numerator = Number(g) * Number(mc);
+          const result = numerator / Number(s)
+          state.properties.void_ratio = result.toFixed(3);
+        }else if(ym > 0){
+          console.log('ym is given');
+          const result = (Number(yw) * ((Number(g) + (Number(g) * Number(mc))) / Number(ym))) - 1;
+          state.properties.void_ratio = result.toFixed(3);
+        }else if(yd > 0){
+          console.log('yd is given');
+          const numerator = Number(g) / Number(yd)
+          const result = (Number(yw) * numerator) - 1
+          state.properties.void_ratio = result.toFixed(3);
+        }else if(ysat > 0){
+          console.log('ysat is given');
+          const numerator = (Number(g) * Number(yw)) - Number(ysat);
+          const denominator = Number(ysat) - Number(yw)
+          const result = numerator / denominator;
+          state.properties.void_ratio = result.toFixed(3)
+        }else if(yb > 0){
+          console.log('yb is given');
+          const numerator = Number(g) - 1
+          const cal_a = numerator / Number(yb)
+          const cal_b = Number(yw) * cal_a
+          const result = cal_b - 1;
+          state.properties.void_ratio = result.toFixed(3)
+        }
+
       } else {
         state.properties.void_ratio = e;
       }
     },
 
     setPorosity: (state, action) => {
-      const { n, e } = action.payload;
+      const { n } = action.payload;
+      const e = state.properties.void_ratio
       if (n == 0) {
         const denominator = 1 + Number(e);
         const result = Number(e) / denominator;
@@ -56,8 +87,8 @@ const calculatorSlice = createSlice({
     setMoistureContent: (state, action) => {
       const { s, mc, g } = action.payload;
       if (mc == 0) {
-        const divisor = s * state.properties.void_ratio;
-        const divider = g;
+        const divisor = Number(s) * state.properties.void_ratio;
+        const divider = Number(g);
         const result = divisor / divider;
         state.properties.moisture_saturation = isNaN(result)
           ? 0

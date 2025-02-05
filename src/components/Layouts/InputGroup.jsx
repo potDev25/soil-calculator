@@ -65,6 +65,58 @@ export default function InputGroup({ notations, setNotations, setUnit }) {
         onChange={(e) => setNotations({ ...notations, s: e.target.value })}
         value={notations.s}
       />
+      <CInput
+        labelText={
+          <>
+            <em className="">
+              (Y<span className=" lowercase">m</span>)
+            </em>{" "}
+            Weight of Water
+          </>
+        }
+        placeholder="Enter Moisture Content"
+        onChange={(e) => setNotations({ ...notations, ym: e.target.value })}
+        value={notations.ym}
+      />
+      <CInput
+        labelText={
+          <>
+            <em className="">
+              (Y<span className=" lowercase">d</span>)
+            </em>{" "}
+            Dry Unit Weight
+          </>
+        }
+        placeholder="Enter Moisture Content"
+        onChange={(e) => setNotations({ ...notations, yd: e.target.value })}
+        value={notations.yd}
+      />
+      <CInput
+        labelText={
+          <>
+            <em className="">
+              (Y<span className=" lowercase">sat</span>)
+            </em>{" "}
+            Saturated Unit Weight
+          </>
+        }
+        placeholder="Enter Saturated Unit Weight"
+        onChange={(e) => setNotations({ ...notations, ysat: e.target.value })}
+        value={notations.ysat}
+      />
+      <CInput
+        labelText={
+          <>
+            <em className="">
+              (Y<span className=" lowercase">b</span>)
+            </em>{" "}
+            Effective Unit Weight
+          </>
+        }
+        placeholder="Enter Effective Unit Weight"
+        onChange={(e) => setNotations({ ...notations, yb: e.target.value })}
+        value={notations.yb}
+      />
       <CSelect
         labelText={
           <>

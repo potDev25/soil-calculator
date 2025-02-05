@@ -15,6 +15,10 @@ function App() {
     g: 0,
     yw: 9.81,
     s: 0,
+    ym: 0, 
+    yd: 0,
+    ysat: 0,
+    yb: 0
   });
   const si_unit = (
     <>
