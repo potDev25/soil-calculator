@@ -133,7 +133,7 @@ function App() {
                   {properties.bulk_unit} {unit == "si" ? si_unit : english_unit}
                 </>
               }
-              with_sol={true}
+              with_sol={notations.ym == 0 ? true : false}
               numerator={`${notations.g} + (${notations.g})(${properties.moisture_saturation})`}
               denuminator={`1 + ${properties.void_ratio}`}
               right_num={notations.yw ?? 9.81}
@@ -155,7 +155,7 @@ function App() {
                   {properties.dry_unit} {unit == "si" ? si_unit : english_unit}
                 </>
               }
-              with_sol={true}
+              with_sol={notations.yd == 0 ? true : false}
               numerator={`${notations.g}`}
               denuminator={`1 + ${properties.void_ratio}`}
               right_num={notations.yw}
@@ -178,7 +178,7 @@ function App() {
                   {unit == "si" ? si_unit : english_unit}
                 </>
               }
-              with_sol={true}
+              with_sol={notations.ysat == 0 ? true : false}
               numerator={`${notations.g} + ${properties.void_ratio}`}
               denuminator={`1 + ${properties.void_ratio}`}
               right_num={notations.yw}
@@ -201,7 +201,7 @@ function App() {
                   {unit == "si" ? si_unit : english_unit}
                 </>
               }
-              with_sol={true}
+              with_sol={notations.yb == 0 ? true : false}
               numerator={`${notations.g} - 1`}
               denuminator={`1 + ${properties.void_ratio}`}
               right_num={notations.yw}

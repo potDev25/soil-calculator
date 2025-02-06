@@ -10,6 +10,7 @@ export default function CCard({
   numerator_text = "",
   right_num_text = "",
   denuminator_text = "",
+  components = <></>
 }) {
   return (
     <div className="outline mb-5 outline-1 outline-gray-300 rounded-md shadow-lg">
@@ -20,25 +21,7 @@ export default function CCard({
         <div className="flex items-center justify-center gap-5">
           {with_sol ? (
             <>
-              <div className="flex items-center flex-col italic">
-                {numerator_text}
-                <div className="flex items-center gap-2">
-                  <div className="bg-black h-[1px] w-[90px]"></div>
-                  {right_num_text ? <span> {right_num_text} </span> : null}
-                </div>
-                {denuminator_text}
-              </div>
-
-              <span className="font-bold">=</span>
-
-              <div className="flex items-center flex-col italic">
-                {numerator}
-                <div className="flex items-center gap-2">
-                  <div className="bg-black h-[1px] w-[90px]"></div>
-                  {right_num ? <span> ({right_num}) </span> : null}
-                </div>
-                {denuminator}
-              </div>
+             {components}
             </>
           ) : null}
         </div>
