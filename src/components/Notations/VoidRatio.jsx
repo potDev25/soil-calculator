@@ -3,8 +3,12 @@ import form1 from "../../assets/images/e-1.png";
 import form2 from "../../assets/images/e-2.png";
 import form3 from "../../assets/images/e-3.png";
 import form4 from "../../assets/images/e-4.png";
+import form5 from "../../assets/images/e-5.png";
+import form6 from "../../assets/images/e-6.png";
+import { useSelector } from "react-redux";
 
 export default function VoidRatio({ notations }) {
+  const properties = useSelector((state) => state.calculator.properties);
   return (
     <div>
       {notations?.n > 0 ? (
@@ -32,12 +36,12 @@ export default function VoidRatio({ notations }) {
             <strong>e = </strong>
             <div className="flex items-center justify-center  flex-col">
               <strong>
-                {notations?.g} x {notations.mc}
+                {notations?.g} x {properties.moisture_saturation}
               </strong>
               <div className="flex items-center justify-center gap-4 mb-2 mt-2">
                 <div className="h-[1px] w-[100px] bg-black"></div>
               </div>
-              <strong>{notations?.s}</strong>
+              <strong>{properties.saturation}</strong>
             </div>
           </div>
         </div>
@@ -51,12 +55,12 @@ export default function VoidRatio({ notations }) {
             <strong>e = {notations.yw}</strong>
             <div className="flex items-center justify-center  flex-col">
               <strong>
-                {notations?.g} + {notations.mc}
+                {notations?.g} + {properties.moisture_saturation}
               </strong>
               <div className="flex items-center justify-center gap-4 mb-2 mt-2">
                 <div className="h-[1px] w-[100px] bg-black"></div>
               </div>
-              <strong>{notations?.ym}</strong>
+              <strong>{properties.bulk_unit}</strong>
             </div>
             <strong>-1</strong>
           </div>
@@ -70,13 +74,54 @@ export default function VoidRatio({ notations }) {
           <div className="flex items-center justify-center gap-2">
             <strong>e = {notations.yw}</strong>
             <div className="flex items-center justify-center  flex-col">
-              <strong>
-                {notations?.g}
-              </strong>
+              <strong>{notations?.g}</strong>
               <div className="flex items-center justify-center gap-4 mb-2 mt-2">
                 <div className="h-[1px] w-[50px] bg-black"></div>
               </div>
               <strong>{notations?.yd}</strong>
+            </div>
+            <strong>-1</strong>
+          </div>
+        </div>
+      ) : null}
+
+      {notations?.ysat > 0 ? (
+        <div className="flex items-center justify-center gap-4">
+          <img src={form5} alt="" className="w-[150px] h-[120]" />
+
+          <div className="flex items-center justify-center gap-2">
+            <strong>e = </strong>
+            <div className="flex items-center justify-center  flex-col">
+              <strong>
+                {notations?.g}({notations?.yw}) - {notations?.ysat}
+              </strong>
+              <div className="flex items-center justify-center gap-4 mb-2 mt-2">
+                <div className="h-[1px] w-[100px] bg-black"></div>
+              </div>
+              <strong>
+                {notations?.ysat} - {notations.yw}
+              </strong>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {notations?.yb > 0 ? (
+        <div className="flex items-center justify-center gap-4">
+          <img src={form6} alt="" className="w-[150px] h-[120]" />
+
+          <div className="flex items-center justify-center gap-2">
+            <strong>e = {notations.yw}</strong>
+            <div className="flex items-center justify-center  flex-col">
+              <strong>
+                {notations?.g} - 1
+              </strong>
+              <div className="flex items-center justify-center gap-4 mb-2 mt-2">
+                <div className="h-[1px] w-[50px] bg-black"></div>
+              </div>
+              <strong>
+                {notations?.yb}
+              </strong>
             </div>
             <strong>-1</strong>
           </div>

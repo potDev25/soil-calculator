@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CInput from "../CInput";
 import CSelect from "../CSelect";
 import DropDown from "./DropDown";
+import DropDownFind from "./DropDownFind";
 
 export default function InputGroup({ notations, setNotations, setUnit }) {
   const [given, setGiven] = useState({
@@ -25,10 +26,12 @@ export default function InputGroup({ notations, setNotations, setUnit }) {
   }, [notations.yw]);
   return (
     <div>
+      <div className="flex items-center justify-center gap-2">
       <DropDown
         setGiven={setGiven}
         given={given}
       />
+      </div>
 
       {given.void_ratio ? (
         <>

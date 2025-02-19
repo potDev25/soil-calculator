@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CButton from "../CButton";
 import CModal from "../CModal";
 import { useDispatch } from "react-redux";
-import { initDB, insertUser, getUsers } from '../../utils/database';
+import { initDB, insertUser, getUsers } from "../../utils/database";
 import {
   setVoidRation,
   clearProps,
@@ -17,12 +17,10 @@ import {
   setPorosity,
 } from "../../Slice/calculatorSlice";
 
-import {
-  setLoader,
-  setOffLoader
-} from "../../Slice/loderSlice";
+import { setLoader, setOffLoader } from "../../Slice/loderSlice";
+import DropDownFind from "./DropDownFind";
 
-export default function Buttons({ notations, setNotations, setLoading }) {
+export default function Buttons({ notations, setNotations, setLoading, find, setFind }) {
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
@@ -32,8 +30,8 @@ export default function Buttons({ notations, setNotations, setLoading }) {
   };
 
   const handleCalculate = () => {
-    setLoading(true)
-    dispatch(setOffLoader())
+    setLoading(true);
+    dispatch(setOffLoader());
     dispatch(setVoidRation(notations));
     dispatch(setPorosity(notations));
     dispatch(setMoistureContent(notations));
@@ -45,9 +43,9 @@ export default function Buttons({ notations, setNotations, setLoading }) {
     dispatch(setDegreeOfSaturation(notations));
 
     setTimeout(() => {
-      dispatch(setLoader())
-      setLoading(false)
-    }, 1000)
+      dispatch(setLoader());
+      setLoading(false);
+    }, 1000);
   };
 
   const handleClear = () => {
@@ -59,12 +57,12 @@ export default function Buttons({ notations, setNotations, setLoading }) {
       g: 0,
       yw: 9.81,
       s: 0,
-      ym: 0, 
+      ym: 0,
       yd: 0,
       ysat: 0,
-      yb: 0
+      yb: 0,
     });
-    dispatch(setOffLoader())
+    dispatch(setOffLoader());
   };
 
   // const setupDB = async () => {
@@ -92,6 +90,8 @@ export default function Buttons({ notations, setNotations, setLoading }) {
         text="Calculate"
         onClick={handleCalculate}
       />
+
+      <DropDownFind given={find} setGiven={setFind}/>
 
       <CButton
         color="bg-gray-500 active:outline-gray-500"

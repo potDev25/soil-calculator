@@ -4,6 +4,14 @@ import Buttons from "./components/Layouts/Buttons";
 import InputGroup from "./components/Layouts/InputGroup";
 import { useSelector } from "react-redux";
 import VoidRatio from "./components/Notations/VoidRatio";
+import Porosity from "./components/Notations/Porosity";
+import DegreeSaturation from "./components/Notations/DegreeSaturation";
+import MoistureContent from "./components/Notations/MoistureContent";
+import BulkUnit from "./components/Notations/BulkUnit";
+import DryUnit from "./components/Notations/DryUnit";
+import SaturatedUnit from "./components/Notations/SaturatedUnit";
+import BouyantUnit from "./components/Notations/BouyantUnit";
+import Critical from "./components/Notations/Critical";
 
 function App() {
   const properties = useSelector((state) => state.calculator.properties);
@@ -20,6 +28,18 @@ function App() {
     yd: 0,
     ysat: 0,
     yb: 0,
+  });
+  const [find, setFind] = useState({
+    void_ratio: false,
+    porosity: false,
+    moisture_content: false,
+    gravity: false,
+    degree_saturation: false,
+    weight_water: false,
+    dry_unit: false,
+    saturated_unit: false,
+    effective_unit: false,
+    critical: false,
   });
   const si_unit = (
     <>
@@ -52,6 +72,8 @@ function App() {
               setLoading={setLoading}
               notations={notations}
               setNotations={setNotations}
+              find={find}
+              setFind={setFind}
             />
           </div>
 
@@ -62,11 +84,9 @@ function App() {
           ) : null}
 
           <div
-            className={`transition-opacity duration-700 ease-in-out ${
-              loader.container_load ? "opacity-100" : "opacity-0"
-            }`}
+           
           >
-            {notations.e == 0 ? (
+            {find.void_ratio ? (
               <>
                 <CCard
                   title={
@@ -80,11 +100,11 @@ function App() {
                   denuminator={`1 - ${properties.porosity}`}
                   numerator_text="n"
                   denuminator_text="1 - n"
-                  components={<VoidRatio notations={notations}/>}
+                  components={<VoidRatio notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.n == 0 ? (
+            {find.porosity ? (
               <>
                 <CCard
                   title={
@@ -98,10 +118,11 @@ function App() {
                   denuminator={`1 + ${properties.void_ratio}`}
                   numerator_text="e"
                   denuminator_text="1 + e"
+                  components={<Porosity notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.s == 0 ? (
+            {find.degree_saturation ? (
               <>
                 <CCard
                   title={
@@ -116,10 +137,11 @@ function App() {
                   denuminator={`${properties.void_ratio}`}
                   numerator_text="GMC"
                   denuminator_text="e"
+                  components={<DegreeSaturation notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.mc == 0 ? (
+            {find.moisture_content ? (
               <>
                 <CCard
                   title={
@@ -136,10 +158,11 @@ function App() {
                   denuminator={`${notations.g}`}
                   numerator_text="Se"
                   denuminator_text="G"
+                  components={<MoistureContent notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.ym == 0 ? (
+            {find.weight_water ? (
               <>
                 <CCard
                   title={
@@ -163,10 +186,11 @@ function App() {
                   numerator_text="G + Se"
                   denuminator_text="1 + e"
                   right_num_text="Yw"
+                  components={<BulkUnit notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.yd == 0 ? (
+            {find.dry_unit ? (
               <>
                 <CCard
                   title={
@@ -190,10 +214,11 @@ function App() {
                   numerator_text="G"
                   denuminator_text="1 + e"
                   right_num_text="Yw"
+                  components={<DryUnit notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.ysat == 0 ? (
+            {find.saturated_unit ? (
               <>
                 <CCard
                   title={
@@ -217,10 +242,11 @@ function App() {
                   numerator_text="G + e"
                   denuminator_text="1 + e"
                   right_num_text="Yw"
+                  components={<SaturatedUnit notations={notations} />}
                 />
               </>
             ) : null}
-            {notations.yb == 0 ? (
+            {find.effective_unit ? (
               <>
                 <CCard
                   title={
@@ -244,25 +270,31 @@ function App() {
                   numerator_text="G - 1"
                   denuminator_text="1 + e"
                   right_num_text="Yw"
+                  components={<BouyantUnit notations={notations} />}
                 />
               </>
             ) : null}
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500 lowercase">
-                    (i<span className="bg-blue-500 lowercase">cr</span>)
-                  </em>{" "}
-                  Crtical hydrolic gradient
-                </>
-              }
-              value={properties.critical}
-              with_sol={true}
-              numerator={`${notations.g} - 1`}
-              denuminator={`1 + ${properties.void_ratio}`}
-              numerator_text="G - 1"
-              denuminator_text="1 + e"
-            />
+            {find.critical ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500 lowercase">
+                        (i<span className="bg-blue-500 lowercase">cr</span>)
+                      </em>{" "}
+                      Crtical hydrolic gradient
+                    </>
+                  }
+                  value={properties.critical}
+                  with_sol={true}
+                  numerator={`${notations.g} - 1`}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  numerator_text="G - 1"
+                  denuminator_text="1 + e"
+                  components={<Critical notations={notations} />}
+                />
+              </>
+            ) : null}
           </div>
         </div>
       </div>
