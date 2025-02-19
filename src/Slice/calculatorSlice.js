@@ -66,6 +66,7 @@ const calculatorSlice = createSlice({
               ((Number(g) + Number(g) * Number(moisture_conent)) /
                 Number(bulk_unit_weight)) -
             1;
+          console.log(result.toFixed(3));
           state.properties.void_ratio = result.toFixed(3);
         } else if (yd > 0) {
           console.log("yd is given");
@@ -97,7 +98,7 @@ const calculatorSlice = createSlice({
       if (n == 0) {
         const denominator = 1 + Number(e);
         const result = Number(e) / denominator;
-        state.properties.porosity = isNaN(result) ? 0.0 : result.toFixed(3);
+        state.properties.porosity = result.toFixed(3);
       } else {
         state.properties.porosity = n;
       }

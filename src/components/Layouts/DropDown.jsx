@@ -3,14 +3,14 @@ import React from "react";
 export default function DropDown({setGiven, given}) {
   return (
     <div className="flex items-center justify-center mb-5">
-      <div className="dropdown">
-        <div
+      <details className="dropdown">
+        <summary
           tabIndex={0}
           role="button"
           className="btn m-1 bg-blue-500 text-white uppercase"
         >
           Set Given Notations
-        </div>
+        </summary>
         <ul
           tabIndex={0}
           className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
@@ -46,7 +46,7 @@ export default function DropDown({setGiven, given}) {
               onClick={() => setGiven({ ...given, gravity: !given.gravity })}
               className={`${given.gravity ? 'bg-green-300 text-green-600 rounded-md' : ''}`}
             >
-              Gravity
+              Specific Gravity of Soils
             </a>
           </li>
           <li className="mb-2">
@@ -62,7 +62,7 @@ export default function DropDown({setGiven, given}) {
               onClick={() => setGiven({ ...given, weight_water: !given.weight_water })}
               className={`${given.weight_water ? 'bg-green-300 text-green-600 rounded-md' : ''}`}
             >
-              Weight of Water
+              Unit Weight of Soil Mass
             </a>
           </li>
           <li className="mb-2">
@@ -70,7 +70,7 @@ export default function DropDown({setGiven, given}) {
               onClick={() => setGiven({ ...given, dry_unit: !given.dry_unit })}
               className={`${given.dry_unit ? 'bg-green-300 text-green-600 rounded-md' : ''}`}
             >
-              Dry Unit
+              Dry Unit Weight
             </a>
           </li>
           <li className="mb-2">
@@ -78,7 +78,7 @@ export default function DropDown({setGiven, given}) {
               onClick={() => setGiven({ ...given, saturated_unit: !given.saturated_unit })}
               className={`${given.saturated_unit ? 'bg-green-300 text-green-600 rounded-md' : ''}`}
             >
-              Saturated Unit
+              Saturated Unit Weight
             </a>
           </li>
           <li className="mb-2">
@@ -86,11 +86,11 @@ export default function DropDown({setGiven, given}) {
               onClick={() => setGiven({ ...given, effective_unit: !given.effective_unit })}
               className={`${given.effective_unit ? 'bg-green-300 text-green-600 rounded-md' : ''}`}
             >
-              Effective Unit
+              Effective Unit Weight
             </a>
           </li>
         </ul>
-      </div>
+      </details>
     </div>
   );
 }

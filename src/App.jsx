@@ -3,6 +3,7 @@ import CCard from "./components/CCard";
 import Buttons from "./components/Layouts/Buttons";
 import InputGroup from "./components/Layouts/InputGroup";
 import { useSelector } from "react-redux";
+import VoidRatio from "./components/Notations/VoidRatio";
 
 function App() {
   const properties = useSelector((state) => state.calculator.properties);
@@ -15,10 +16,10 @@ function App() {
     g: 0,
     yw: 9.81,
     s: 0,
-    ym: 0, 
+    ym: 0,
     yd: 0,
     ysat: 0,
-    yb: 0
+    yb: 0,
   });
   const si_unit = (
     <>
@@ -54,161 +55,198 @@ function App() {
             />
           </div>
 
-          {loading ? <div className="flex items-center justify-center mt-16 mb-10">
-            <div className="spinner"></div>
-          </div> : null}
+          {loading ? (
+            <div className="flex items-center justify-center mt-16 mb-10">
+              <div className="spinner"></div>
+            </div>
+          ) : null}
 
           <div
             className={`transition-opacity duration-700 ease-in-out ${
               loader.container_load ? "opacity-100" : "opacity-0"
             }`}
           >
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500 lowercase">(e)</em> Void Ratio
-                </>
-              }
-              value={properties.void_ratio}
-              with_sol={notations.e == 0 ? true : false}
-              numerator={properties.porosity}
-              denuminator={`1 - ${properties.porosity}`}
-              numerator_text="n"
-              denuminator_text="1 - n"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500 lowercase">(n)</em> Porosity
-                </>
-              }
-              value={properties.porosity}
-              with_sol={notations.n == 0 ? true : false}
-              numerator={properties.void_ratio}
-              denuminator={`1 + ${properties.void_ratio}`}
-              numerator_text="e"
-              denuminator_text="1 + e"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500 lowercase">(S)</em> Degree of
-                  Saturation
-                </>
-              }
-              value={properties.saturation}
-              with_sol={notations.s == 0 ? true : false}
-              numerator={`${notations.g}(${properties.moisture_saturation})`}
-              denuminator={`${properties.void_ratio}`}
-              numerator_text="GMC"
-              denuminator_text="e"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500">
-                    (M<span className="bg-blue-500 lowercase">c</span>)
-                  </em>{" "}
-                  Moisture Content
-                </>
-              }
-              value={properties.moisture_saturation}
-              with_sol={notations.mc == 0 ? true : false}
-              numerator={`${properties.saturation}(${properties.void_ratio})`}
-              denuminator={`${notations.g}`}
-              numerator_text="Se"
-              denuminator_text="G"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500">
-                    (Y<span className="bg-blue-500 lowercase">m</span>)
-                  </em>{" "}
-                  Bulk Unit Weight
-                </>
-              }
-              value={
-                <>
-                  {properties.bulk_unit} {unit == "si" ? si_unit : english_unit}
-                </>
-              }
-              with_sol={notations.ym == 0 ? true : false}
-              numerator={`${notations.g} + (${notations.g})(${properties.moisture_saturation})`}
-              denuminator={`1 + ${properties.void_ratio}`}
-              right_num={notations.yw ?? 9.81}
-              numerator_text="G + Se"
-              denuminator_text="1 + e"
-              right_num_text="Yw"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500">
-                    (Y<span className="bg-blue-500 lowercase">d</span>)
-                  </em>{" "}
-                  Dry Unit Weight
-                </>
-              }
-              value={
-                <>
-                  {properties.dry_unit} {unit == "si" ? si_unit : english_unit}
-                </>
-              }
-              with_sol={notations.yd == 0 ? true : false}
-              numerator={`${notations.g}`}
-              denuminator={`1 + ${properties.void_ratio}`}
-              right_num={notations.yw}
-              numerator_text="G"
-              denuminator_text="1 + e"
-              right_num_text="Yw"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500">
-                    (Y<span className="bg-blue-500 lowercase">sat</span>)
-                  </em>{" "}
-                  Saturated Unit Weight
-                </>
-              }
-              value={
-                <>
-                  {properties.saturated_unit}{" "}
-                  {unit == "si" ? si_unit : english_unit}
-                </>
-              }
-              with_sol={notations.ysat == 0 ? true : false}
-              numerator={`${notations.g} + ${properties.void_ratio}`}
-              denuminator={`1 + ${properties.void_ratio}`}
-              right_num={notations.yw}
-              numerator_text="G + e"
-              denuminator_text="1 + e"
-              right_num_text="Yw"
-            />
-            <CCard
-              title={
-                <>
-                  <em className="bg-blue-500">
-                    (Y<span className="bg-blue-500 lowercase">b</span>)
-                  </em>{" "}
-                  Effective Unit Weight
-                </>
-              }
-              value={
-                <>
-                  {properties.effective_unit}{" "}
-                  {unit == "si" ? si_unit : english_unit}
-                </>
-              }
-              with_sol={notations.yb == 0 ? true : false}
-              numerator={`${notations.g} - 1`}
-              denuminator={`1 + ${properties.void_ratio}`}
-              right_num={notations.yw}
-              numerator_text="G - 1"
-              denuminator_text="1 + e"
-              right_num_text="Yw"
-            />
+            {notations.e == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500 lowercase">(e)</em> Void Ratio
+                    </>
+                  }
+                  value={properties.void_ratio}
+                  with_sol={notations.e == 0 ? true : false}
+                  numerator={properties.porosity}
+                  denuminator={`1 - ${properties.porosity}`}
+                  numerator_text="n"
+                  denuminator_text="1 - n"
+                  components={<VoidRatio notations={notations}/>}
+                />
+              </>
+            ) : null}
+            {notations.n == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500 lowercase">(n)</em> Porosity
+                    </>
+                  }
+                  value={properties.porosity}
+                  with_sol={notations.n == 0 ? true : false}
+                  numerator={properties.void_ratio}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  numerator_text="e"
+                  denuminator_text="1 + e"
+                />
+              </>
+            ) : null}
+            {notations.s == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500 lowercase">(S)</em> Degree of
+                      Saturation
+                    </>
+                  }
+                  value={properties.saturation}
+                  with_sol={notations.s == 0 ? true : false}
+                  numerator={`${notations.g}(${properties.moisture_saturation})`}
+                  denuminator={`${properties.void_ratio}`}
+                  numerator_text="GMC"
+                  denuminator_text="e"
+                />
+              </>
+            ) : null}
+            {notations.mc == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500">
+                        (M<span className="bg-blue-500 lowercase">c</span>)
+                      </em>{" "}
+                      Moisture Content
+                    </>
+                  }
+                  value={properties.moisture_saturation}
+                  with_sol={notations.mc == 0 ? true : false}
+                  numerator={`${properties.saturation}(${properties.void_ratio})`}
+                  denuminator={`${notations.g}`}
+                  numerator_text="Se"
+                  denuminator_text="G"
+                />
+              </>
+            ) : null}
+            {notations.ym == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500">
+                        (Y<span className="bg-blue-500 lowercase">m</span>)
+                      </em>{" "}
+                      Bulk Unit Weight
+                    </>
+                  }
+                  value={
+                    <>
+                      {properties.bulk_unit}{" "}
+                      {unit == "si" ? si_unit : english_unit}
+                    </>
+                  }
+                  with_sol={notations.ym == 0 ? true : false}
+                  numerator={`${notations.g} + (${notations.g})(${properties.moisture_saturation})`}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  right_num={notations.yw ?? 9.81}
+                  numerator_text="G + Se"
+                  denuminator_text="1 + e"
+                  right_num_text="Yw"
+                />
+              </>
+            ) : null}
+            {notations.yd == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500">
+                        (Y<span className="bg-blue-500 lowercase">d</span>)
+                      </em>{" "}
+                      Dry Unit Weight
+                    </>
+                  }
+                  value={
+                    <>
+                      {properties.dry_unit}{" "}
+                      {unit == "si" ? si_unit : english_unit}
+                    </>
+                  }
+                  with_sol={notations.yd == 0 ? true : false}
+                  numerator={`${notations.g}`}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  right_num={notations.yw}
+                  numerator_text="G"
+                  denuminator_text="1 + e"
+                  right_num_text="Yw"
+                />
+              </>
+            ) : null}
+            {notations.ysat == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500">
+                        (Y<span className="bg-blue-500 lowercase">sat</span>)
+                      </em>{" "}
+                      Saturated Unit Weight
+                    </>
+                  }
+                  value={
+                    <>
+                      {properties.saturated_unit}{" "}
+                      {unit == "si" ? si_unit : english_unit}
+                    </>
+                  }
+                  with_sol={notations.ysat == 0 ? true : false}
+                  numerator={`${notations.g} + ${properties.void_ratio}`}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  right_num={notations.yw}
+                  numerator_text="G + e"
+                  denuminator_text="1 + e"
+                  right_num_text="Yw"
+                />
+              </>
+            ) : null}
+            {notations.yb == 0 ? (
+              <>
+                <CCard
+                  title={
+                    <>
+                      <em className="bg-blue-500">
+                        (Y<span className="bg-blue-500 lowercase">b</span>)
+                      </em>{" "}
+                      Effective Unit Weight
+                    </>
+                  }
+                  value={
+                    <>
+                      {properties.effective_unit}{" "}
+                      {unit == "si" ? si_unit : english_unit}
+                    </>
+                  }
+                  with_sol={notations.yb == 0 ? true : false}
+                  numerator={`${notations.g} - 1`}
+                  denuminator={`1 + ${properties.void_ratio}`}
+                  right_num={notations.yw}
+                  numerator_text="G - 1"
+                  denuminator_text="1 + e"
+                  right_num_text="Yw"
+                />
+              </>
+            ) : null}
             <CCard
               title={
                 <>

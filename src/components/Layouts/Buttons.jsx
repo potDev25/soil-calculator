@@ -57,8 +57,12 @@ export default function Buttons({ notations, setNotations, setLoading }) {
       n: 0,
       mc: 0,
       g: 0,
-      yw: 0,
+      yw: 9.81,
       s: 0,
+      ym: 0, 
+      yd: 0,
+      ysat: 0,
+      yb: 0
     });
     dispatch(setOffLoader())
   };
